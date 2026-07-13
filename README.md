@@ -32,14 +32,14 @@ ShortieKey runs silently in the menu bar (no Dock icon), registers system-wide k
 
 | Action | Shortcut |
 |---|---|
-| Left half | ⌥⌘← |
-| Right half | ⌥⌘→ |
-| Top half | ⌥⌘↑ |
-| Bottom half | ⌥⌘↓ |
-| Fullscreen | ⌥⌘F |
-| Move to next monitor | ⌃⌥⌘→ |
-| Move to previous monitor | ⌃⌥⌘← |
-| Restore previous size | ⌥⌘Z |
+| Snap Left | ⌥⌘← |
+| Snap Right | ⌥⌘→ |
+| Snap Top | ⌥⌘T |
+| Snap Bottom | ⌥⌘B |
+| Fullscreen | ⌥⌘↑ |
+| Restore | ⌥⌘↓ |
+| Next Screen | ⌃⌥⌘→ |
+| Prev Screen | ⌃⌥⌘← |
 
 ---
 
