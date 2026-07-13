@@ -6,8 +6,11 @@
 
 A lightweight macOS menu bar window manager — a modern replacement for Spectacle. (https://github.com/eczarny/spectacle)
 
+Years ago I found/started using Spectacle because the standard MacOS window manipulation keyboard shortcuts are limited and not memorable. I built this app to include the common window-rearranging/moving commands - especially useful if working with an extra monitor (multiple screens). 
+
 ShortieKey runs silently in the menu bar (no Dock icon), registers system-wide keyboard shortcuts, and snaps/resizes windows using the native macOS Accessibility API.
 
+For less technical folks, I added downloadable zip with the compiled app - click link above.
 ---
 
 ## Features
