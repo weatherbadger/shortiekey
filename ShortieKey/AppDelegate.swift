@@ -86,7 +86,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         hotkeyManager.registerAll(bindings: hotkeyManager.loadBindings())
 
-        registerLoginItem()
+        // Register as a login item on first launch (makes the checkbox default to on).
+        // Only do this when notRegistered — if the user has previously unchecked the
+        // box the status will be .notFound and we must leave it alone.
+        if SMAppService.mainApp.status == .notRegistered {
+            try? SMAppService.mainApp.register()
+        }
+
         checkAccessibilityPermission(prompt: true)
 
         NSWorkspace.shared.notificationCenter.addObserver(
@@ -95,18 +101,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             name: NSWorkspace.didActivateApplicationNotification,
             object: nil
         )
-    }
-
-    // MARK: - Login Item
-
-    private func registerLoginItem() {
-        do {
-            if SMAppService.mainApp.status == .notRegistered {
-                try SMAppService.mainApp.register()
-            }
-        } catch {
-            print("ShortieKey: failed to register login item: \(error)")
-        }
     }
 
     // MARK: - Accessibility Permission

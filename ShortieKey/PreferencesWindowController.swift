@@ -1,5 +1,6 @@
 import AppKit
 import Carbon
+import ServiceManagement
 
 // MARK: - KeyCaptureField
 
@@ -126,6 +127,7 @@ class PreferencesWindowController: NSWindowController,
     private var captureFields: [Int: KeyCaptureField] = [:]
 
     private var tableView: NSTableView!
+    private var launchAtLoginCheckbox: NSButton!
 
     // MARK: - Init
 
@@ -134,7 +136,7 @@ class PreferencesWindowController: NSWindowController,
         self.currentBindings = hotkeyManager.loadBindings()
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 400, height: 360),
+            contentRect: NSRect(x: 0, y: 0, width: 400, height: 395),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -182,6 +184,14 @@ class PreferencesWindowController: NSWindowController,
 
         scrollView.documentView = tableView
 
+        // --- Launch at Login checkbox ---
+        launchAtLoginCheckbox = NSButton(checkboxWithTitle: "Launch on startup",
+                                         target: self,
+                                         action: #selector(launchAtLoginToggled))
+        launchAtLoginCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        launchAtLoginCheckbox.state = (SMAppService.mainApp.status == .enabled) ? .on : .off
+        contentView.addSubview(launchAtLoginCheckbox)
+
         // --- Buttons ---
         let restoreButton = NSButton(
             title: "Restore Defaults",
@@ -207,7 +217,10 @@ class PreferencesWindowController: NSWindowController,
             scrollView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            scrollView.bottomAnchor.constraint(equalTo: restoreButton.topAnchor, constant: -12),
+            scrollView.bottomAnchor.constraint(equalTo: launchAtLoginCheckbox.topAnchor, constant: -12),
+
+            launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
+            launchAtLoginCheckbox.bottomAnchor.constraint(equalTo: restoreButton.topAnchor, constant: -10),
 
             restoreButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             restoreButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
@@ -269,6 +282,18 @@ class PreferencesWindowController: NSWindowController,
     }
 
     // MARK: - Actions
+
+    @objc private func launchAtLoginToggled() {
+        do {
+            if launchAtLoginCheckbox.state == .on {
+                try SMAppService.mainApp.register()
+            } else {
+                try SMAppService.mainApp.unregister()
+            }
+        } catch {
+            print("ShortieKey: failed to update login item: \(error)")
+        }
+    }
 
     @objc private func fieldClicked(_ gesture: NSClickGestureRecognizer) {
         guard let field = gesture.view as? KeyCaptureField else { return }

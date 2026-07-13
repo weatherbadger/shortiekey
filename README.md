@@ -17,6 +17,7 @@ ShortieKey runs silently in the menu bar (no Dock icon), registers system-wide k
 - Move windows between monitors
 - Fully configurable keyboard shortcuts via Preferences
 - Runs silently in the menu bar — no Dock icon
+- **Launches on startup by default** — registered as a login item on first launch; toggle anytime in Preferences
 
 ---
 
@@ -54,8 +55,7 @@ ShortieKey runs silently in the menu bar (no Dock icon), registers system-wide k
 3. Press **⌘R** to build and run.
 4. Grant Accessibility permission when prompted — ShortieKey cannot move windows without it.
 
-> **Tip:** To have ShortieKey launch at login, add it in  
-> **System Settings → General → Login Items**.
+> **Tip:** Launch on startup is **enabled by default**. To toggle it, open Preferences (⌘,) and use the **Launch on startup** checkbox at the bottom of the window.
 
 ---
 
