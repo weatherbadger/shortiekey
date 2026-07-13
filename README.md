@@ -1,5 +1,9 @@
 # ShortieKey
 
+[![GitHub release](https://img.shields.io/github/v/release/weatherbadger/shortiekey)](https://github.com/weatherbadger/shortiekey/releases/latest)
+
+> Download the latest release: [ShortieKey-v0.1.0.zip](https://github.com/weatherbadger/shortiekey/releases/latest)
+
 A lightweight macOS menu bar window manager — a modern replacement for Spectacle.
 
 ShortieKey runs silently in the menu bar (no Dock icon), registers system-wide keyboard shortcuts, and snaps/resizes windows using the native macOS Accessibility API.

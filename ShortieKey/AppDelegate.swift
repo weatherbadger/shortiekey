@@ -1,4 +1,5 @@
 import AppKit
+import ServiceManagement
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
@@ -85,6 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         hotkeyManager.registerAll(bindings: hotkeyManager.loadBindings())
 
+        registerLoginItem()
         checkAccessibilityPermission(prompt: true)
 
         NSWorkspace.shared.notificationCenter.addObserver(
@@ -93,6 +95,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             name: NSWorkspace.didActivateApplicationNotification,
             object: nil
         )
+    }
+
+    // MARK: - Login Item
+
+    private func registerLoginItem() {
+        do {
+            if SMAppService.mainApp.status == .notRegistered {
+                try SMAppService.mainApp.register()
+            }
+        } catch {
+            print("ShortieKey: failed to register login item: \(error)")
+        }
     }
 
     // MARK: - Accessibility Permission
